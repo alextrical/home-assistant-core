@@ -211,9 +211,10 @@ class PhilipsTVLightEntity(PhilipsJsEntity, LightEntity):
         return ColorMode.ONOFF
 
     @property
+    def is_on(self) -> bool | None:
     def is_on(self) -> bool:
         """Return if the light is turned on."""
-        if self._tv.on:
+        if self._tv.on and self.effect:
             effect = AmbilightEffect.from_str(self._attr_effect)
             return effect.is_on(self._tv.powerstate)
 
